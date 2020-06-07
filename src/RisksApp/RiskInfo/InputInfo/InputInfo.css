@@ -1,0 +1,17 @@
+.InputInfo-field {
+    display: inline-block;
+    width: 30%;
+}
+
+.InputInfo-inputs {
+    display: inline-block;
+    width: 70%;
+}
+
+.InputInfo-warning {
+    font-size: 12px;
+    margin-left: 10em;
+    display: inline-block;
+    width: 70%;
+    color: red;
+}

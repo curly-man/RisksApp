@@ -1,0 +1,50 @@
+.RiskInfo {
+    float: right;
+    margin-top: -1px;
+    width: 40%;
+    height: 37em;
+    border-left: 1px solid black;
+}
+
+.RiskInfo-header {
+    margin: 5px 0px 5px 10px;
+}
+
+.RiskInfo-item {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.RiskInfo-bottom {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 11em;
+}
+
+.RiskInfo-description {
+    width: 98%;
+    height: 10em;
+}
+
+.RiskInfo-input_info {
+    display: block;
+    text-align: center;
+}
+
+.RiskInfo-input_name {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.RiskInfo-column-20 {
+    display: inline-block;
+    width: 20%;
+}
+
+.RiskInfo-column-30 {
+    display: inline-block;
+    width: 33%;
+}

@@ -1,0 +1,33 @@
+.navbar {
+    height: 2.4em;
+    color: rgb(53, 53, 53);
+}
+
+.vl {
+    border-left: 1px solid black;
+    height: 0.5em;
+    margin: 0 0.5em;
+}
+
+.header {
+    float: left;
+    margin: 5px 10px;
+    font-style: italic;
+}
+
+.menu {
+    float: right;
+    margin: -7px 10px;
+}
+
+.circle {
+    position: relative;
+    top: 10px;
+    margin-left: 1em;
+    height: 30px;
+    width: 30px;
+    background-color: white;
+    border: 1px solid rgb(54, 54, 54);
+    border-radius: 50%;
+    display: inline-block;
+}

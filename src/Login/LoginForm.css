@@ -1,0 +1,10 @@
+.center {
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    text-align: center;
+}
+
+.warning {
+    color: red;
+}
