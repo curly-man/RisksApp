@@ -1,72 +1,67 @@
-import React from 'react'
-import Input from '../Input/Input'
-import './InputInfo.css'
+import React from 'react';
+import Input from '../Input/Input';
+import './InputInfo.css';
 
 class InputInfo extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            data: this.props.data,
-            warning: null
-        }
-        this.onInputChange = this.onInputChange.bind(this)
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: this.props.data,
+      warning: null,
+    };
+    this.onInputChange = this.onInputChange.bind(this);
+  }
 
-    onInputChange(value, elementID) {
-        const data = this.props.data
-        if (Number.isNaN(Number(value))){
-            return
-        }
-        const id = Number(elementID.split('_')[1])
-        if (id === 1) {
-            if (Number(value) > data.max){
-                this.setState(() => {
-                    return {warning: "min should be less than max"}
-                })
-                return
-            }
-            data.min = Number(value)
-        }
-        if (id === 2) {
-            data.likely = Number(value)
-        }
-        if (id === 3) {
-            if (Number(value) < data.min){
-                this.setState(() => {
-                    return {warning: "max should be more than min"}
-                })
-                return
-            }
-            data.max = Number(value)
-        }
-        this.setState({
-            data: data
-        })
-        this.setState(() => {
-            return {warning: null}
-        })
-        this.props.onInfoChange(data)
+  onInputChange(value, elementID) {
+    const { data } = this.props;
+    const newValue = Number(value);
+    if (Number.isNaN(newValue)) {
+      return;
     }
+    const id = Number(elementID.split('_')[1]);
+    if (id === 1) {
+      if (newValue > data.max) {
+        this.setState(() => ({ warning: 'min should be less than max' }));
+        return;
+      }
+      data.min = newValue;
+    }
+    if (id === 2) {
+      data.likely = newValue;
+    }
+    if (id === 3) {
+      if (newValue < data.min) {
+        this.setState(() => ({ warning: 'max should be more than min' }));
+        return;
+      }
+      data.max = newValue;
+    }
+    this.setState({
+      data,
+      warning: null,
+    });
+    this.props.onInfoChange(data);
+  }
 
-    render() {
-        let warning
-        if (this.state.warning !== null){
-            warning = <a>{this.state.warning}</a>
-        }
-        return (
-            <div className=''>
-                <span className='InputInfo-field'>{this.props.field}</span>
-                <div className='InputInfo-inputs'>
-                    <Input id={this.props.field + '_1'} label={this.props.label} onInputChange={this.onInputChange} value={this.props.data.min}></Input>
-                    <Input id={this.props.field + '_2'} label={this.props.label} onInputChange={this.onInputChange} value={this.props.data.likely}></Input>
-                    <Input id={this.props.field + '_3'} label={this.props.label} onInputChange={this.onInputChange} value={this.props.data.max}></Input>
-                </div>
-                <div className='InputInfo-warning'>
-                    {warning}
-                </div>
-            </div>
-        )
+  render() {
+    let warning;
+    if (this.state.warning !== null) {
+      warning = <a>{this.state.warning}</a>;
     }
+    return (
+      <div className="RiskInfo-item">
+        <span className="InputInfo-field">{this.props.field}</span>
+        <div className="InputInfo-inputs">
+          <Input id={`${this.props.field}_1`} label={this.props.label} onInputChange={this.onInputChange} value={this.props.data.min} />
+          <Input id={`${this.props.field}_2`} label={this.props.label} onInputChange={this.onInputChange} value={this.props.data.likely} />
+          <Input id={`${this.props.field}_3`} label={this.props.label} onInputChange={this.onInputChange} value={this.props.data.max} />
+        </div>
+        <div className="InputInfo-warning">
+          {warning}
+        </div>
+      </div>
+    );
+  }
 }
 
-export default InputInfo
+export default InputInfo;

@@ -1,32 +1,19 @@
-import USERS_DB_URL from './config'
+import USERS_DB_URL from './config';
+import Requests from '../Requests';
 
 class UserService {
-    constructor() {
-        this.url = USERS_DB_URL
-    }
+  constructor() {
+    this.url = USERS_DB_URL;
+    this.http = new Requests();
+  }
 
-    async makeRequest(methodType, data){
-        const response = await fetch(this.url, {
-            method: methodType,
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json'},
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer',
-            body: JSON.stringify(data)
-        });
-        return await response.json();
-    }
+  getUser() {
+    return this.http.get(this.url);
+  }
 
-    getUser(userName) {
-        return this.makeRequest("GET", undefined)
-    }
-
-    createUser(userName, userPassword) {
-        return this.makeRequest("POST", {name: userName, password: userPassword})
-    }
+  createUser(userName, userPassword) {
+    return this.http.post(this.url, { name: userName, password: userPassword });
+  }
 }
 
-export default UserService
+export default UserService;

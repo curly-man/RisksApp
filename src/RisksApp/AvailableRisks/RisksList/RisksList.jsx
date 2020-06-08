@@ -1,23 +1,21 @@
-import React from 'react'
-import RiskItem from './RiskItem/RiskItem'
-import './RisksList.css'
+import React from 'react';
+import RiskItem from './RiskItem/RiskItem';
+import './RisksList.css';
 
 class RisksList extends React.Component {
-    // constructor(props) {
-    //     super(props)
-    // }
+  // constructor(props) {
+  //     super(props)
+  // }
 
-    render() {
-        const riskItems = this.props.risks.map((riskData) =>
-            <RiskItem key={riskData.id} risk={riskData} onRiskClick={this.props.onRiskClick}></RiskItem>
-        );
-        
-        return (
-            <div className='RisksList'>
-                {riskItems}
-            </div>
-        )
-    }
+  render() {
+    const riskItems = this.props.risks.map((riskData) => <RiskItem key={riskData.id} risk={riskData} onRiskClick={this.props.onRiskClick} />);
+
+    return (
+      <div className="RisksList">
+        {riskItems}
+      </div>
+    );
+  }
 }
 
-export default RisksList
+export default RisksList;

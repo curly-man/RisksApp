@@ -1,39 +1,36 @@
-import React from 'react'
-import './RisksSort.css'
+import React from 'react';
+import './RisksSort.css';
 
 class RisksSort extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            currentActive: 3
-        }
-        this.sort = this.sort.bind(this)
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentActive: 'name',
+    };
+    this.sort = this.sort.bind(this);
+  }
 
-    sort(event) {
-        const id = event.target.id
-        document.getElementById(this.state.currentActive).classList = ''
-        event.target.className = "App-active_item"
-        this.setState((state) => {
-            return { currentActive: id }
-        })
-        this.props.sortRisks(id)
-    }
+  sort(event) {
+    const { id } = event.target;
+    document.getElementById(this.state.currentActive).classList = '';
+    event.target.className = 'App-active_item';
+    this.setState((state) => ({ currentActive: id }));
+    this.props.sortRisks(id);
+  }
 
-    render() {
-
-        return (
-            <div className='RisksSort'>
-                <span>Sort By:</span>
+  render() {
+    return (
+      <div className="RisksSort">
+        <span>Sort By:</span>
                 &nbsp;
-                <span id='1' onClick={this.sort} className={this.state.time}>Impact Time</span>
-                <span className='vl'></span>
-                <span id='2' onClick={this.sort} className={this.state.probability}>Probability</span>
-                <span className='vl'></span>
-                <span id='3' onClick={this.sort} className={this.state.name}>Name</span>
-            </div>
-        )
-    }
+        <span id="likelyImpactTime" onClick={this.sort} className={this.state.time}>Impact Time</span>
+        <span className="vl" />
+        <span id="likelyProbability" onClick={this.sort} className={this.state.probability}>Probability</span>
+        <span className="vl" />
+        <span id="name" onClick={this.sort} className={this.state.name}>Name</span>
+      </div>
+    );
+  }
 }
 
-export default RisksSort
+export default RisksSort;

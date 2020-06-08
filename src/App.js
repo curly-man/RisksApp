@@ -1,46 +1,35 @@
 import React from 'react';
-import LoginForm from './Login/LoginForm'
-import UserStore from './Stores/UserStore'
-import RisksApp from './RisksApp/RisksApp'
+import LoginForm from './Login/LoginForm';
+import UserStore from './Stores/UserStore';
+import RisksApp from './RisksApp/RisksApp';
 import './App.css';
 
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
-    this.state = { loggedUser: null }
-    this.loggingUser = this.loggingUser.bind(this)
-    this.logoutUser = this.logoutUser.bind(this)
+    super(props);
+    this.state = { loggedUser: null };
   }
 
   loggingUser(user) {
     this.setState({
-      loggedUser: new UserStore(user)
-    })
-    console.log(this.state)
+      loggedUser: new UserStore(user),
+    });
   }
 
   logoutUser() {
-    this.setState(() => {
-      return { loggedUser: null }
-    })
+    this.setState(() => ({ loggedUser: null }));
   }
 
   render() {
-    if (this.state.loggedUser === null) {
+    if (!this.state.loggedUser) {
       return (
-        <div className='app'>
-          <LoginForm onLogged={this.loggingUser}></LoginForm>
-        </div>
+        <LoginForm onLogged={(user) => this.loggingUser(user)} />
       );
     }
-    else {
-      return (
-        <div className='app'>
-          <RisksApp user={this.state.loggedUser} logout={this.logoutUser}></RisksApp>
-        </div>
-      )
-    }
+    return (
+      <RisksApp user={this.state.loggedUser} logout={() => this.logoutUser()} />
+    );
   }
 }
 
