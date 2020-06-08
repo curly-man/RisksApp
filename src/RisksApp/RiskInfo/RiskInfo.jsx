@@ -1,6 +1,8 @@
 import React from 'react';
 import InputInfo from './InputInfo/InputInfo';
 import Button from '../Button/Button';
+import InputDescription from './InputDescription/InputDescription';
+import LabelForInputInfo from './InputInfo/labelForInputInfo';
 import './RiskInfo.css';
 
 class RiskInfo extends React.Component {
@@ -82,7 +84,7 @@ class RiskInfo extends React.Component {
   render() {
     let nameItem;
     let deleteButton;
-    if (this.props.manageRisk !== true) {
+    if (!this.props.manageRisk) {
       nameItem = (
         <div>
           <p className="RiskInfo-header">{this.state.name}</p>
@@ -100,16 +102,8 @@ class RiskInfo extends React.Component {
     return (
       <div id={this.props.risk.id} className="RiskInfo">
         {nameItem}
-        <div className="RiskInfo-item">
-          <a>Description:</a>
-          <textarea className="RiskInfo-description" onChange={(event) => this.onDescriptionChange(event.target.value)} value={this.state.description} />
-        </div>
-        <div className="RiskInfo-item">
-          <span className="RiskInfo-column-30" />
-          <span className="RiskInfo-column-20">Min</span>
-          <span className="RiskInfo-column-20">Likely</span>
-          <span className="RiskInfo-column-20">Max</span>
-        </div>
+        <InputDescription onDescriptionChange={this.onDescriptionChange} description={this.state.description} />
+        <LabelForInputInfo />
         <InputInfo data={this.state.probability} field="Probability" onInfoChange={this.onProbabilityChange} label="%" />
         <InputInfo data={this.state.impactTime} field="Impact Time" onInfoChange={this.onImpactTimeChange} label="h" />
         <div className="RiskInfo-bottom">
