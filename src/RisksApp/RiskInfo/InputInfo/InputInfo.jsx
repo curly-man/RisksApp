@@ -9,7 +9,6 @@ class InputInfo extends React.Component {
       data: this.props.data,
       warning: null,
     };
-    this.onInputChange = this.onInputChange.bind(this);
   }
 
   onInputChange(value, elementID) {
@@ -52,9 +51,9 @@ class InputInfo extends React.Component {
       <div className="RiskInfo-item">
         <span className="InputInfo-field">{this.props.field}</span>
         <div className="InputInfo-inputs">
-          <Input id={`${this.props.field}_1`} label={this.props.label} onInputChange={this.onInputChange} value={this.props.data.min} />
-          <Input id={`${this.props.field}_2`} label={this.props.label} onInputChange={this.onInputChange} value={this.props.data.likely} />
-          <Input id={`${this.props.field}_3`} label={this.props.label} onInputChange={this.onInputChange} value={this.props.data.max} />
+          <Input id={`${this.props.field}_1`} label={this.props.label} onInputChange={(value, elementID) => this.onInputChange(value, elementID)} value={this.props.data.min} />
+          <Input id={`${this.props.field}_2`} label={this.props.label} onInputChange={(value, elementID) => this.onInputChange(value, elementID)} value={this.props.data.likely} />
+          <Input id={`${this.props.field}_3`} label={this.props.label} onInputChange={(value, elementID) => this.onInputChange(value, elementID)} value={this.props.data.max} />
         </div>
         <div className="InputInfo-warning">
           {warning}

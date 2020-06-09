@@ -13,11 +13,11 @@ class AvailableRisks extends React.Component {
       risks: [],
       risk: null,
     };
-    this.showRisk = this.showRisk.bind(this);
-    this.changeRisk = this.changeRisk.bind(this);
-    this.addRisk = this.addRisk.bind(this);
-    this.removeRisk = this.removeRisk.bind(this);
-    this.sortRisks = this.sortRisks.bind(this);
+    // this.showRisk = this.showRisk.bind(this);
+    // this.changeRisk = this.changeRisk.bind(this);
+    // this.addRisk = this.addRisk.bind(this);
+    // this.removeRisk = this.removeRisk.bind(this);
+    // this.sortRisks = this.sortRisks.bind(this);
   }
 
   async getRisks() {
@@ -120,7 +120,7 @@ class AvailableRisks extends React.Component {
     let riskInfo = null;
     let addButton = null;
     if (this.state.risk !== null) {
-      riskInfo = <RiskInfo key={this.state.risk.id} risk={this.state.risk} onChangeRisk={this.changeRisk} removeRisk={this.removeRisk} manageRisk={this.props.manageRisk} />;
+      riskInfo = <RiskInfo key={this.state.risk.id} risk={this.state.risk} onChangeRisk={(newRisk) => this.changeRisk(newRisk)} removeRisk={(riskID) => this.removeRisk(riskID)} manageRisk={this.props.manageRisk} />;
     } else {
       riskInfo = <div />;
     }
@@ -131,8 +131,8 @@ class AvailableRisks extends React.Component {
       <div id={`Manage-Risks-${this.props.manageRisk}`}>
         <div className="AvailableRisks">
           <h5 className="AvailableRisks-item">Available Risks:</h5>
-          <RisksSort sortRisks={this.sortRisks} />
-          <RisksList risks={this.state.risks} onRiskClick={this.showRisk} />
+          <RisksSort sortRisks={(id) => this.sortRisks(id)} />
+          <RisksList risks={this.state.risks} onRiskClick={(event) => this.showRisk(event)} />
           {addButton}
         </div>
         {riskInfo}

@@ -7,7 +7,6 @@ class RisksSort extends React.Component {
     this.state = {
       currentActive: 'name',
     };
-    this.sort = this.sort.bind(this);
   }
 
   sort(event) {
@@ -23,11 +22,11 @@ class RisksSort extends React.Component {
       <div className="RisksSort">
         <span>Sort By:</span>
                 &nbsp;
-        <span id="likelyImpactTime" onClick={this.sort} className={this.state.time}>Impact Time</span>
+        <span id="likelyImpactTime" onClick={(event) => this.sort(event)} className={this.state.time}>Impact Time</span>
         <span className="vl" />
-        <span id="likelyProbability" onClick={this.sort} className={this.state.probability}>Probability</span>
+        <span id="likelyProbability" onClick={(event) => this.sort(event)} className={this.state.probability}>Probability</span>
         <span className="vl" />
-        <span id="name" onClick={this.sort} className={this.state.name}>Name</span>
+        <span id="name" onClick={(event) => this.sort(event)} className={this.state.name}>Name</span>
       </div>
     );
   }

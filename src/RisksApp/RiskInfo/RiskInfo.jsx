@@ -24,12 +24,6 @@ class RiskInfo extends React.Component {
         max: this.props.risk.maxImpactTime,
       },
     };
-    this.onNameChange = this.onNameChange.bind(this);
-    this.onDescriptionChange = this.onDescriptionChange.bind(this);
-    this.onProbabilityChange = this.onProbabilityChange.bind(this);
-    this.onImpactTimeChange = this.onImpactTimeChange.bind(this);
-    this.onChangeRisk = this.onChangeRisk.bind(this);
-    this.onResetClick = this.onResetClick.bind(this);
   }
 
   onNameChange(name) {
@@ -102,14 +96,14 @@ class RiskInfo extends React.Component {
     return (
       <div id={this.props.risk.id} className="RiskInfo">
         {nameItem}
-        <InputDescription onDescriptionChange={this.onDescriptionChange} description={this.state.description} />
+        <InputDescription onDescriptionChange={(description) => this.onDescriptionChange(description)} description={this.state.description} />
         <LabelForInputInfo />
-        <InputInfo data={this.state.probability} field="Probability" onInfoChange={this.onProbabilityChange} label="%" />
-        <InputInfo data={this.state.impactTime} field="Impact Time" onInfoChange={this.onImpactTimeChange} label="h" />
+        <InputInfo data={this.state.probability} field="Probability" onInfoChange={(data) => this.onProbabilityChange(data)} label="%" />
+        <InputInfo data={this.state.impactTime} field="Impact Time" onInfoChange={(data) => this.onImpactTimeChange(data)} label="h" />
         <div className="RiskInfo-bottom">
-          <Button name="Apply" onButtonClick={this.onChangeRisk} />
+          <Button name="Apply" onButtonClick={() => this.onChangeRisk()} />
           {deleteButton}
-          <Button name="Reset" onButtonClick={this.onResetClick} />
+          <Button name="Reset" onButtonClick={() => this.onResetClick()} />
         </div>
       </div>
     );
