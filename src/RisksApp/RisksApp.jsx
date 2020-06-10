@@ -12,7 +12,7 @@ class RisksApp extends React.Component {
     };
   }
 
-  onStatusChange() {
+  onStatusChange = () => {
     this.setState((state) => ({ manageRisks: !state.manageRisks }));
   }
 
@@ -20,7 +20,7 @@ class RisksApp extends React.Component {
     return (
       <div className="app">
         <div className="row">
-          <RisksNavbar userName={this.props.user.name} currentStatus={this.state.manageRisks} onStatusChange={() => this.onStatusChange()} logout={() => this.props.logout()} />
+          <RisksNavbar userName={this.props.user.name} currentStatus={this.state.manageRisks} onStatusChange={this.onStatusChange} logout={() => this.props.logout()} />
         </div>
         <div className="row">
           <AvailableRisks user={this.state.user} risk={null} manageRisk={this.state.manageRisks} />

@@ -13,49 +13,53 @@ class LoginForm extends React.Component {
       password: '',
       warning: '',
     };
-    this.changeLogin = this.changeLogin.bind(this);
-    this.changePassword = this.changePassword.bind(this);
-    this.login = this.login.bind(this);
-    this.signup = this.signup.bind(this);
   }
 
-  changeLogin(event) {
+  changeLogin = (event) => {
     this.setState({
       login: event.target.value,
     });
   }
 
-  changePassword(event) {
+  checkPassword(password){
     const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
-    const password = event.target.value;
     let warning = '';
     if (!re.test(password)) {
       warning = 'A-Z, a-z, 0-9 >= 6';
+      this.setState({
+        warning,
+      })
+      return false
     }
+    return true
+  }
+
+  changePassword = (event) => {
+    const password = event.target.value;
     this.setState({
       password,
-      warning,
+      warning: '',
     });
   }
 
-  async login() {
+  login = async () => {
     const users = await this.userService.getUser(this.state.login);
-    users.map((user) => {
-      if (user.name === this.state.login) {
-        this.setState({
-          user,
-        });
-        if (user.password === this.state.password) {
-          this.props.onLogged(user);
-        }
-      }
-      return null;
-    });
+    const user = users.find((user) => user.name === this.state.login)
+    if (user.password === this.state.password){
+      this.props.onLogged(user);
+      return
+    }
+    this.setState({
+      warning: 'Incorrect login or password'
+    })
   }
 
-  signup() {
+  signup = async () => {
     if (!this.state.warning && this.state.login !== '' && this.state.password !== '') {
-      this.userService.createUser(this.state.login, this.state.password);
+      if (this.checkPassword(this.state.password)){
+        const user = await this.userService.createUser(this.state.login, this.state.password);
+        this.props.onLogged(user);
+      }
     }
   }
 
@@ -68,7 +72,7 @@ class LoginForm extends React.Component {
       <div className="center">
         <InputField label="Login" type="text" onChange={this.changeLogin} />
         <InputField label="Password" type="password" onChange={this.changePassword} />
-        {warning}
+        {warning && <p className="warning">{this.state.warning}</p>}
         <div>
           <SubmitButton text="Log In" action={this.login} />
           <SubmitButton text="Sign Up" action={this.signup} />

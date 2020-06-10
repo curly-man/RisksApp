@@ -17,19 +17,22 @@ class App extends React.Component {
     });
   }
 
-  logoutUser() {
+  logoutUser = () => {
     this.setState(() => ({ loggedUser: null }));
   }
 
   render() {
-    if (!this.state.loggedUser) {
-      return (
-        <LoginForm onLogged={(user) => this.loggingUser(user)} />
-      );
-    }
-    return (
-      <RisksApp user={this.state.loggedUser} logout={() => this.logoutUser()} />
-    );
+    return !this.state.loggedUser
+      ? <LoginForm onLogged={(user) => this.loggingUser(user)} />
+      : <RisksApp user={this.state.loggedUser} logout={this.logoutUser} />;
+    // if (!this.state.loggedUser) {
+    //   return (
+    //     <LoginForm onLogged={(user) => this.loggingUser(user)} />
+    //   );
+    // }
+    // return (
+    //   <RisksApp user={this.state.loggedUser} logout={() => this.logoutUser()} />
+    // );
   }
 }
 

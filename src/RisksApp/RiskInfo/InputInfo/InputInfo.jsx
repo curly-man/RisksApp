@@ -11,7 +11,7 @@ class InputInfo extends React.Component {
     };
   }
 
-  onInputChange(value, elementID) {
+  onInputChange = (value, elementID) => {
     const { data } = this.props;
     const newValue = Number(value);
     if (Number.isNaN(newValue)) {
@@ -43,20 +43,18 @@ class InputInfo extends React.Component {
   }
 
   render() {
-    let warning;
-    if (this.state.warning !== null) {
-      warning = <a>{this.state.warning}</a>;
-    }
     return (
       <div className="RiskInfo-item">
         <span className="InputInfo-field">{this.props.field}</span>
         <div className="InputInfo-inputs">
-          <Input id={`${this.props.field}_1`} label={this.props.label} onInputChange={(value, elementID) => this.onInputChange(value, elementID)} value={this.props.data.min} />
-          <Input id={`${this.props.field}_2`} label={this.props.label} onInputChange={(value, elementID) => this.onInputChange(value, elementID)} value={this.props.data.likely} />
-          <Input id={`${this.props.field}_3`} label={this.props.label} onInputChange={(value, elementID) => this.onInputChange(value, elementID)} value={this.props.data.max} />
+          <Input id={`${this.props.field}_1`} label={this.props.label} onInputChange={this.onInputChange} value={this.props.data.min} />
+          <Input id={`${this.props.field}_2`} label={this.props.label} onInputChange={this.onInputChange} value={this.props.data.likely} />
+          <Input id={`${this.props.field}_3`} label={this.props.label} onInputChange={this.onInputChange} value={this.props.data.max} />
         </div>
         <div className="InputInfo-warning">
-          {warning}
+          {this.state.warning &&
+            <a>{this.state.warning}</a>
+          }
         </div>
       </div>
     );

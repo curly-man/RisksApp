@@ -7,3 +7,15 @@
 .App-active_item {
     text-decoration: underline;
 }
+
+.SortItem {
+    display: inline-block;
+    border-left: 1px solid black;
+    padding: 0 0.4em;
+}
+
+.SortItem:nth-of-type(1) {
+    display: inline-block;
+    border: none;
+    padding: 0 0.4em;
+}

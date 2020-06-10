@@ -13,11 +13,6 @@ class AvailableRisks extends React.Component {
       risks: [],
       risk: null,
     };
-    // this.showRisk = this.showRisk.bind(this);
-    // this.changeRisk = this.changeRisk.bind(this);
-    // this.addRisk = this.addRisk.bind(this);
-    // this.removeRisk = this.removeRisk.bind(this);
-    // this.sortRisks = this.sortRisks.bind(this);
   }
 
   async getRisks() {
@@ -35,7 +30,7 @@ class AvailableRisks extends React.Component {
     return element.id;
   }
 
-  sortRisks(sortType) {
+  sortRisks = (sortType) => {
     const { risks } = this.state;
     risks.sort((a, b) => {
       if (a[sortType] > b[sortType]) {
@@ -49,19 +44,13 @@ class AvailableRisks extends React.Component {
     this.setState(() => ({ risks }));
   }
 
-  showRisk(event) {
+  showRisk = (event) => {
     const id = this.getRiskID(event.target);
-    let choseRisk;
-    this.state.risks.map((risk) => {
-      if (risk.id === id) {
-        choseRisk = risk;
-      }
-      return null;
-    });
-    this.setState(() => ({ risk: choseRisk }));
+    const risk = this.state.risks.find((risk) => risk.id === id);
+    this.setState(() => ({ risk: risk }));
   }
 
-  async changeRisk(newRisk) {
+  changeRisk = async (newRisk) => {
     let risk;
     const { risks } = this.state;
     if (newRisk.id === '-1') {
@@ -69,7 +58,7 @@ class AvailableRisks extends React.Component {
       risks.push(risk);
     } else {
       risk = await this.risksService.updateRisk(newRisk);
-      const oldRisk = risks.find((item, index) => item.id === risk.id);
+      const oldRisk = risks.find((item) => item.id === risk.id);
       risks[risks.indexOf(oldRisk)] = risk;
     }
     this.setState(() => ({
@@ -78,7 +67,7 @@ class AvailableRisks extends React.Component {
     }));
   }
 
-  addRisk() {
+  addRisk = () => {
     this.setState((state) => ({
       risk: {
         id: '-1',
@@ -95,21 +84,14 @@ class AvailableRisks extends React.Component {
     }));
   }
 
-  removeRisk(riskID) {
-    console.log(riskID);
-    this.risksService.removeRisk(riskID)
-      .then((result) => {
-        let idx;
-        this.state.risks.map((risk, index) => {
-          if (risk.id === riskID) {
-            delete this.state.risks[index];
-          }
-        });
-        this.setState((state) => ({
-          risks: state.risks,
-          risk: null,
-        }));
-      });
+  removeRisk = async (riskID) => {
+    const result = await this.risksService.removeRisk(riskID)
+    const risk = this.state.risks.find((risk) => risk.id === result.id)
+    delete this.state.risks[this.state.risks.indexOf(risk)];
+    this.setState((state) => ({
+      risks: state.risks,
+      risk: null,
+    }));
   }
 
   componentDidMount() {
@@ -117,25 +99,24 @@ class AvailableRisks extends React.Component {
   }
 
   render() {
-    let riskInfo = null;
-    let addButton = null;
-    if (this.state.risk !== null) {
-      riskInfo = <RiskInfo key={this.state.risk.id} risk={this.state.risk} onChangeRisk={(newRisk) => this.changeRisk(newRisk)} removeRisk={(riskID) => this.removeRisk(riskID)} manageRisk={this.props.manageRisk} />;
-    } else {
-      riskInfo = <div />;
-    }
-    if (this.props.manageRisk === true) {
-      addButton = <button className="AvailableRisks-addButton" onClick={() => this.addRisk()}>Add Risk</button>;
-    }
+    const sortParams = [
+      { id: "likelyImpactTime", value: "Impact Time" },
+      { id: "likelyProbability", value: "Probability"},
+      { id: "name", value: "Name"}
+    ]
     return (
       <div id={`Manage-Risks-${this.props.manageRisk}`}>
         <div className="AvailableRisks">
           <h5 className="AvailableRisks-item">Available Risks:</h5>
-          <RisksSort sortRisks={(id) => this.sortRisks(id)} />
-          <RisksList risks={this.state.risks} onRiskClick={(event) => this.showRisk(event)} />
-          {addButton}
+          <RisksSort params={sortParams} sortRisks={this.sortRisks} />
+          <RisksList risks={this.state.risks} onRiskClick={this.showRisk} />
+          {this.props.manageRisk &&
+            <button className="AvailableRisks-addButton" onClick={this.addRisk}>Add Risk</button>
+          }
         </div>
-        {riskInfo}
+        {this.state.risk &&
+          <RiskInfo key={this.state.risk.id} risk={this.state.risk} onChangeRisk={this.changeRisk} removeRisk={this.removeRisk} manageRisk={this.props.manageRisk} />
+        }
         <div style={{ clear: 'both' }} />
       </div>
     );

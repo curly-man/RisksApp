@@ -26,23 +26,27 @@ class RiskInfo extends React.Component {
     };
   }
 
-  onNameChange(name) {
+  onNameChange = (name) => {
     this.setState(() => ({ name }));
   }
 
-  onDescriptionChange(description) {
+  onDescriptionChange = (description) => {
     this.setState(() => ({ description }));
   }
 
-  onProbabilityChange(data) {
+  onProbabilityChange = (data) => {
     this.setState(() => ({ probability: data }));
   }
 
-  onImpactTimeChange(data) {
+  onImpactTimeChange = (data) => {
     this.setState(() => ({ impactTime: data }));
   }
 
-  onChangeRisk() {
+  onChangeRisk = () => {
+    if (!this.state.name){
+      document.getElementById('NameInput').classList += " Warn"
+      return
+    }
     const risk = {
       id: this.state.id,
       userId: this.state.userId,
@@ -58,7 +62,7 @@ class RiskInfo extends React.Component {
     this.props.onChangeRisk(risk);
   }
 
-  onResetClick() {
+  onResetClick = () => {
     this.setState(() => ({
       name: this.props.risk.name,
       description: this.props.risk.description,
@@ -76,34 +80,26 @@ class RiskInfo extends React.Component {
   }
 
   render() {
-    let nameItem;
-    let deleteButton;
-    if (!this.props.manageRisk) {
-      nameItem = (
-        <div>
-          <p className="RiskInfo-header">{this.state.name}</p>
-        </div>
-      );
-    } else {
-      nameItem = (
-        <div className="RiskInfo-item">
-          <a>Name</a>
-          <input className="RiskInfo-input" onChange={(event) => this.onNameChange(event.target.value)} value={this.state.name} />
-        </div>
-      );
-      deleteButton = <Button name="Remove" onButtonClick={() => this.props.removeRisk(this.state.id)} />;
-    }
     return (
       <div id={this.props.risk.id} className="RiskInfo">
-        {nameItem}
-        <InputDescription onDescriptionChange={(description) => this.onDescriptionChange(description)} description={this.state.description} />
+        {this.props.manageRisk ?
+          <div className="RiskInfo-item">
+            <a>Name</a>
+            <input id='NameInput' className="RiskInfo-input" onChange={(event) => this.onNameChange(event.target.value)} value={this.state.name} />
+          </div>
+          :
+          <p className="RiskInfo-header">{this.state.name}</p>
+        }
+        <InputDescription onDescriptionChange={this.onDescriptionChange} description={this.state.description} />
         <LabelForInputInfo />
-        <InputInfo data={this.state.probability} field="Probability" onInfoChange={(data) => this.onProbabilityChange(data)} label="%" />
-        <InputInfo data={this.state.impactTime} field="Impact Time" onInfoChange={(data) => this.onImpactTimeChange(data)} label="h" />
+        <InputInfo data={this.state.probability} field="Probability" onInfoChange={this.onProbabilityChange} label="%" />
+        <InputInfo data={this.state.impactTime} field="Impact Time" onInfoChange={this.onImpactTimeChange} label="h" />
         <div className="RiskInfo-bottom">
-          <Button name="Apply" onButtonClick={() => this.onChangeRisk()} />
-          {deleteButton}
-          <Button name="Reset" onButtonClick={() => this.onResetClick()} />
+          <Button name="Apply" onButtonClick={this.onChangeRisk} />
+          {this.props.manageRisk &&
+            <Button name="Remove" onButtonClick={() => this.props.removeRisk(this.state.id)} />
+          }
+          <Button name="Reset" onButtonClick={this.onResetClick} />
         </div>
       </div>
     );

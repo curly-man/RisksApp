@@ -9,7 +9,7 @@ class RisksSort extends React.Component {
     };
   }
 
-  sort(event) {
+  sort = (event) => {
     const { id } = event.target;
     document.getElementById(this.state.currentActive).classList = '';
     event.target.className = 'App-active_item';
@@ -18,15 +18,18 @@ class RisksSort extends React.Component {
   }
 
   render() {
+    const data = this.props.params.map((param) => {
+      return (
+        <div key={param.id} className="SortItem">
+          <span id={param.id} onClick={this.sort}>{param.value}</span>
+        </div>
+      )
+    })
     return (
       <div className="RisksSort">
         <span>Sort By:</span>
                 &nbsp;
-        <span id="likelyImpactTime" onClick={(event) => this.sort(event)} className={this.state.time}>Impact Time</span>
-        <span className="vl" />
-        <span id="likelyProbability" onClick={(event) => this.sort(event)} className={this.state.probability}>Probability</span>
-        <span className="vl" />
-        <span id="name" onClick={(event) => this.sort(event)} className={this.state.name}>Name</span>
+        {data}
       </div>
     );
   }
