@@ -1,0 +1,17 @@
+.Input {
+    display: inline-block;
+    width: 30%;
+}
+
+.Input-field {
+    display: inline-block;
+    width: 60%;
+}
+
+input {
+  
+}
+
+label {
+    display: inline;
+}

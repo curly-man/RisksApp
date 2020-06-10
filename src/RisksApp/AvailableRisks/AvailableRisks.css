@@ -1,0 +1,16 @@
+.AvailableRisks {
+    float: left;
+    width: 58%;
+    height: 37em;
+}
+
+.AvailableRisks-item {
+    margin: 5px 0px 5px 10px;
+}
+
+.AvailableRisks-addButton {
+    margin: 5px 0px 5px 10px;
+    border: 1px solid black;
+    height: 1.5em;
+    width: 8em;
+}

@@ -1,0 +1,14 @@
+.app {
+    margin: 0.5em 2em;
+    color: rgb(53, 53, 53);
+}
+
+.row {
+    display: block;
+    margin-bottom: -1px;
+    border: 1px solid black;
+}
+
+.App-active_true {
+    text-decoration: underline;
+}
