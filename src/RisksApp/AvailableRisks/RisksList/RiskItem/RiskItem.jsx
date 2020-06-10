@@ -1,18 +1,17 @@
 import React from 'react';
 import './RiskItem.css';
 
-class RisksItem extends React.Component {
-  render() {
-    return (
-      <div id={this.props.risk.id} className="RiskItem" onClick={(event) => this.props.onRiskClick(event)}>
-        <span>{this.props.risk.name}</span>
-        <span className="vl" />
-        <span>{`${this.props.risk.likelyImpactTime}hrs `}</span>
-        <span className="vl" />
-        <span>{`${this.props.risk.likelyProbability}% `}</span>
-      </div>
-    );
-  }
+function RisksItem(props) {
+  const {risk, onRiskClick} = props;
+  return (
+    <div id={risk.id} className="RiskItem" onClick={(event) => onRiskClick(event)}>
+      <span>{risk.name}</span>
+      <span className="vl" />
+      <span>{`${risk.likelyImpactTime}hrs `}</span>
+      <span className="vl" />
+      <span>{`${risk.likelyProbability}% `}</span>
+    </div>
+  );
 }
 
 export default RisksItem;

@@ -101,21 +101,33 @@ class AvailableRisks extends React.Component {
   render() {
     const sortParams = [
       { id: "likelyImpactTime", value: "Impact Time" },
-      { id: "likelyProbability", value: "Probability"},
-      { id: "name", value: "Name"}
+      { id: "likelyProbability", value: "Probability" },
+      { id: "name", value: "Name" }
     ]
     return (
       <div id={`Manage-Risks-${this.props.manageRisk}`}>
         <div className="AvailableRisks">
           <h5 className="AvailableRisks-item">Available Risks:</h5>
-          <RisksSort params={sortParams} sortRisks={this.sortRisks} />
-          <RisksList risks={this.state.risks} onRiskClick={this.showRisk} />
+          <RisksSort
+            params={sortParams}
+            sortRisks={this.sortRisks}
+          />
+          <RisksList
+            risks={this.state.risks}
+            onRiskClick={this.showRisk}
+          />
           {this.props.manageRisk &&
             <button className="AvailableRisks-addButton" onClick={this.addRisk}>Add Risk</button>
           }
         </div>
         {this.state.risk &&
-          <RiskInfo key={this.state.risk.id} risk={this.state.risk} onChangeRisk={this.changeRisk} removeRisk={this.removeRisk} manageRisk={this.props.manageRisk} />
+          <RiskInfo
+            key={this.state.risk.id}
+            risk={this.state.risk}
+            onChangeRisk={this.changeRisk}
+            removeRisk={this.removeRisk}
+            manageRisk={this.props.manageRisk}
+          />
         }
         <div style={{ clear: 'both' }} />
       </div>

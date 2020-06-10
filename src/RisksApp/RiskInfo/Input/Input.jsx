@@ -2,10 +2,17 @@ import React from 'react';
 import './Input.css';
 
 function Input(props) {
+  const {
+    onInputChange, id, label, value,
+  } = props;
   return (
-    <div id={props.id} className="Input">
-      <input className="Input-field" onChange={(event) => props.onInputChange(event.target.value, event.target.parentElement.id)} value={props.value} />
-      <label>{props.label}</label>
+    <div id={id} className="Input">
+      <input
+        className="Input-field"
+        onChange={(event) => onInputChange(event.target.value, event.target.parentElement.id)}
+        value={value}
+      />
+      <label>{label}</label>
     </div>
   );
 }

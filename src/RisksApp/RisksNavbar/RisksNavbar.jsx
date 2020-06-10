@@ -6,20 +6,31 @@ class RisksNavbar extends React.Component {
     super(props);
   }
 
-  statusChange() {
-    this.props.onStatusChange();
+  statusChange = () => {
+    const { onStatusChange } = this.props;
+    onStatusChange();
   }
 
   render() {
+    const { currentStatus, userName, logout } = this.props;
     return (
       <div className="navbar">
         <h3 className="header">Risk Management App</h3>
         <div className="menu">
-          <span className={`App-active_${this.props.currentStatus}`} onClick={() => this.statusChange()}>Manage Risks</span>
+          <span
+            className={`App-active_${currentStatus}`}
+            onClick={this.statusChange}
+          >
+            Manage Risks
+          </span>
           <span className="vl" />
-          <span onClick={() => this.props.logout()}>Log Out</span>
+          <span
+            onClick={logout}
+          >
+            Log Out
+          </span>
           <span className="vl" />
-          <span>{this.props.userName}</span>
+          <span>{userName}</span>
           <span className="circle" />
         </div>
       </div>

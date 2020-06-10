@@ -17,13 +17,20 @@ class RisksApp extends React.Component {
   }
 
   render() {
+    const { logout } = this.props;
+    const { user, manageRisks } = this.state;
     return (
       <div className="app">
         <div className="row">
-          <RisksNavbar userName={this.props.user.name} currentStatus={this.state.manageRisks} onStatusChange={this.onStatusChange} logout={() => this.props.logout()} />
+          <RisksNavbar
+            userName={user.name}
+            currentStatus={this.state.manageRisks}
+            onStatusChange={this.onStatusChange}
+            logout={logout}
+          />
         </div>
         <div className="row">
-          <AvailableRisks user={this.state.user} risk={null} manageRisk={this.state.manageRisks} />
+          <AvailableRisks user={user} risk={null} manageRisk={manageRisks} />
         </div>
       </div>
     );

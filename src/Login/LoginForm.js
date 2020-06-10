@@ -45,9 +45,11 @@ class LoginForm extends React.Component {
   login = async () => {
     const users = await this.userService.getUser(this.state.login);
     const user = users.find((user) => user.name === this.state.login)
-    if (user.password === this.state.password){
-      this.props.onLogged(user);
-      return
+    if (user){
+      if (user.password === this.state.password){
+        this.props.onLogged(user);
+        return
+      }
     }
     this.setState({
       warning: 'Incorrect login or password'
@@ -64,15 +66,11 @@ class LoginForm extends React.Component {
   }
 
   render() {
-    let warning;
-    if (this.state.warning) {
-      warning = <p className="warning">{this.state.warning}</p>;
-    }
     return (
       <div className="center">
         <InputField label="Login" type="text" onChange={this.changeLogin} />
         <InputField label="Password" type="password" onChange={this.changePassword} />
-        {warning && <p className="warning">{this.state.warning}</p>}
+        {this.state.warning && <p className="warning">{this.state.warning}</p>}
         <div>
           <SubmitButton text="Log In" action={this.login} />
           <SubmitButton text="Sign Up" action={this.signup} />

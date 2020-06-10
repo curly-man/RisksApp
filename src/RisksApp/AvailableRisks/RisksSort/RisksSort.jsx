@@ -21,7 +21,12 @@ class RisksSort extends React.Component {
     const data = this.props.params.map((param) => {
       return (
         <div key={param.id} className="SortItem">
-          <span id={param.id} onClick={this.sort}>{param.value}</span>
+          <span
+            id={param.id}
+            onClick={this.sort}
+          >
+            {param.value}
+          </span>
         </div>
       )
     })
