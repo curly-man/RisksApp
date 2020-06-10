@@ -4,16 +4,11 @@ import UserStore from './Stores/UserStore';
 import RisksApp from './RisksApp/RisksApp';
 import './App.css';
 
-const user = {
-  name:'Anton',
-  id: 1
-}
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { loggedUser: user };
-    // this.state = { loggedUser: null };
+    this.state = { loggedUser: null };
   }
 
   loggingUser = (user) => {
